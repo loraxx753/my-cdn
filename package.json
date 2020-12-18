@@ -1,0 +1,36 @@
+{
+  "name": "my-cdn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cli.js",
+  "scripts": {
+    "start": "node --trace-warnings ./index.js ",
+    "create": "node index.js create ",
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"push": "surge cdn",
+	"e": "node index.js create example-element",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook -o cdn/docs --docs",
+    "dev": "http-server ./cdn"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@storybook/addon-actions": "^6.1.9",
+    "@storybook/addon-essentials": "^6.1.9",
+    "@storybook/addon-links": "^6.1.9",
+    "@storybook/html": "^6.1.9",
+    "babel-loader": "^8.2.2",
+    "chalk": "^4.1.0",
+    "chromatic": "^5.4.0",
+    "http-server": "^0.12.3",
+    "surge": "^0.21.7",
+    "yargs": "^16.1.1",
+    "@storybook/addons": "^6.1.10",
+    "@storybook/client-logger": "^6.1.10",
+    "@storybook/theming": "^6.1.10"
+  },
+  "dependencies": {}
+}

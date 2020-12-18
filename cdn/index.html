@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		body {
+			padding: 0;
+			margin: 0;
+		}
+		svg-js {
+			/* background-color: #160515; */
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100vw;
+			height: 100vh;
+			position: fixed;
+		}
+
+	</style>
+	
+</head>
+<body>
+	<svg-js id="drawing"></svg-js>
+	<script type="module">
+		;(() =>  {
+			document.querySelector('svg-js').addEventListener('load', function() {
+				const circle = this.screen.circle(100).center(0, 0)
+				circle.direction = []
+				this.callback = () => {
+					circle.dx(1).dy(1)
+
+					
+					window.requestAnimationFrame(this.callback)
+				}
+			})
+		})()
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.16/svg.min.js"></script>
+	<script type="module" src="scripts/elements/svg-js/element.js"></script>
+	
+
+
+</body>
+</html>
