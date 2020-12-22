@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		body {
+			padding: 0;
+			margin: 0;
+		}
+		svg-js {
+			/* background-color: rgb(195, 209, 255); */
+			/* background-color: rgb(255, 56, 0); */
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100vw;
+			height: 100vh;
+			position: fixed;
+		}
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/8.1.0/math.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.16/svg.min.js"></script>
+</head>
+<body>
+	<svg-js id="drawing"></svg-js>
+	<script type="module">
+		import { timeline, physical_units } from './scripts/the-verse/Universe.js'
+		import { Circle } from './scripts/svg-js/Shapes.js'
+
+		window.timeline = Object.fromEntries(timeline.map((o) => [o.name, o]))
+		;(() => {
+			document.querySelector('svg-js').addEventListener('load', function() {
+				const { temperature: { colors } } = physical_units
+
+				this.toggleGridlines({ axis: 'x'});
+				this.toggleGridlines({ axis: 'y'})
+				var group = this.screen.group()
+				const {x,a,y,b} = { x: 5, a: 1, y: 8, b: 3}
+				console.log(math.evaluate(`abs(${x}-${a}) + abs(${y}-${b})`))
+
+				const circles = Object.entries(colors).reverse().map(([temp, color], i, copy) => {
+					const [ r,g,b ] = color
+					let size = (((copy.length - i)+1)*10)
+					const c = new Circle({
+						size,
+						x: 0,
+						y: 0,
+						stroke: 0,
+						color: new SVG.Color({r, g, b}),
+						// color: new SVG.Color({ h:304, s: 63, l: 5 })
+					}, this.screen)
+					// c.back()
+					return c
+				})
+				const [ r2, g2, b2 ] = Object.entries(colors)[0]
+				this.shadowRoot.querySelector('svg').style.backgroundColor = `rgb(${r2}, ${g2}, ${b2})`
+
+				// group.front()
+				// group.move(100,200)
+
+				this.callback = () => {
+					// circles.map(circle => circle.animate().size(500))
+
+					window.requestAnimationFrame(this.callback)
+				}
+
+				document.addEventListener('keypress', ({ key }) => {
+					switch(key) {
+						case 't':
+							group.visible() ? group.hide() : group.show()
+					}
+				})
+			})
+		})()
+	</script>
+	<script type="module" src="scripts/elements/svg-js/element.js"></script>
+	
+
+
+</body>
+</html>
