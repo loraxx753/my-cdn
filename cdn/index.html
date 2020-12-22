@@ -10,7 +10,7 @@
 			margin: 0;
 		}
 		svg-js {
-			/* background-color: #160515; */
+			/* background-color: rgb(195, 209, 255); */
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -18,30 +18,12 @@
 			height: 100vh;
 			position: fixed;
 		}
-
 	</style>
-	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/8.1.0/math.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.16/svg.min.js"></script>
 </head>
 <body>
-	<svg-js id="drawing"></svg-js>
-	<script type="module">
-		;(() =>  {
-			document.querySelector('svg-js').addEventListener('load', function() {
-				const circle = this.screen.circle(100).center(0, 0)
-				circle.direction = []
-				this.callback = () => {
-					circle.dx(1).dy(1)
-
-					
-					window.requestAnimationFrame(this.callback)
-				}
-			})
-		})()
-	</script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.16/svg.min.js"></script>
+	<svg-js game=universe moveable reference-frame=inertial></svg-js>
 	<script type="module" src="scripts/elements/svg-js/element.js"></script>
-	
-
-
 </body>
 </html>
