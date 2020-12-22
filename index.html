@@ -24,19 +24,9 @@
 </head>
 <body>
 	<svg-js game=universe moveable reference-frame=inertial></svg-js>
-	<script type="production"  src="https://my-cdn.surge.sh/scripts/elements/svg-js/element.js"></script>
-	<script type="development" src="http://127.0.0.1:8080/cdn/scripts/elements/svg-js/element.js"></script>
-	<script>
-		// const env = 'development'
-		const host = window.location.host
-		env = host.includes('surge.sh') || host.includes('github.io') ? 'production' : 'development'
-		const scripts = [ ...document.querySelectorAll(`[type=${env}]`) ]
-		;scripts.map(script => {
-			script.remove()
-			script.type = 'module'
-			document.querySelector('body').appendChild(script)
-		})
+		<script type="production"  src="https://my-cdn.surge.sh/scripts/elements/svg-js/element.js"></script>
+		<script type="development" src="http://127.0.0.1:8080/cdn/scripts/elements/svg-js/element.js"></script>
 
-	</script>
+		<script type="module" src="http://127.0.0.1:8080/cdn/scripts/dev-mode/import.min.js"></script>
 </body>
 </html>
