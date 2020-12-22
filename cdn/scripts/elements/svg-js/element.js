@@ -56,14 +56,14 @@ export default (async () => {
 					default:
 						break;
 				}
-				console.log(`${this.nodeName.toLowerCase()}'s attribute ${name} has changed from ${oldValue} to ${newValue}`);
+				console.debug(`${this.nodeName.toLowerCase()}'s attribute ${name} has changed from ${oldValue} to ${newValue}`);
 			}
 			disconnectedCallback() {
-				console.log(`${this.nodeName.toLowerCase()} has disconnected.`);
+				console.debug(`${this.nodeName.toLowerCase()} has disconnected.`);
 			}
 				
 			adoptedCallback() {
-				console.log(`${this.nodeName.toLowerCase()} has been adopted.`);
+				console.debug(`${this.nodeName.toLowerCase()} has been adopted.`);
 			}
 			updateElement() {
 				this.shadowRoot.querySelector('style').textContent =`svg { 
@@ -81,35 +81,28 @@ export default (async () => {
 				window.cancelAnimationFrame(this.animationFrame)
 				const start = this.screen.text('start').center(0,0).attr({
 					color: '#000',
-				}) //.click(async e => {
-					// Object.entries(this.groups).map(n => this.groups[n[0]].clear())
-					this.screen.clear()
+				})
+				this.screen.clear()
 
-					if(this.hasAttribute('moveable')) {
-						this.shadowRoot.querySelector('svg') // .addAttribute('moveable', true)
-						document.addEventListener('mousemove', ({ metaKey, buttons, x, y, movementX, movementY }) => {
-							if(buttons) {
-								let {x, y, width, height} = this.screen.viewbox()
-								x-=movementX
-								y-=movementY
-								this.screen.viewbox(x, y, width, height)
-							}
-							else {
-							
-							}
-						})
-					}
-	
+				if(this.hasAttribute('moveable')) {
+					this.shadowRoot.querySelector('svg') // .addAttribute('moveable', true)
+					document.addEventListener('mousemove', ({ metaKey, buttons, x, y, movementX, movementY }) => {
+						if(buttons) {
+							let {x, y, width, height} = this.screen.viewbox()
+							x-=movementX
+							y-=movementY
+							this.screen.viewbox(x, y, width, height)
+						}
+						else {
+						
+						}
+					})
+				}
+				this.games[chosenGame] = (await import(`./games/${chosenGame}/loading.js`)).default
 
-
-
-					this.games[chosenGame] = (await import(`/scripts/elements/svg-js/games/${chosenGame}/loading.js`)).default
-					// console.log(this.games)
-
-					this.games[chosenGame]()
-					this.dispatchEvent(this.events.loading)
-					this.animationFrame = window.requestAnimationFrame(this.callback)
-				//})
+				this.games[chosenGame]()
+				this.dispatchEvent(this.events.loading)
+				this.animationFrame = window.requestAnimationFrame(this.callback)
 			}
 
 			get center() {
