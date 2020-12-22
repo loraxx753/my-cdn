@@ -70,7 +70,6 @@ export default (async () => {
 			   overflow: ${overflow}; 
 			   width: calc(100vw);
 			   height: calc(100vh);
-			   border: 1px solid black;
 			}`
 			}
 
